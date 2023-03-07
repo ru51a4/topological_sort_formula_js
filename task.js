@@ -25,14 +25,18 @@ class formulaTask {
     static build(str) {
         let nodes = [];
         let str_nodes = [];
-        str = str.split("\n")
+        str = str.split("\n").filter((c) => !!c.trim());
         for (let i = 0; i <= str.length - 1; i++) {
-            let c = {};
             let _c = str[i].split("=")
-            c["path"] = formulaTask.lex(_c[1]);
-            c["sort"] = 0;
-            str_nodes.push(_c[0].trim());
-            nodes[_c[0].trim()] = c
+            let _left = _c[0].split(",")
+            let _right = _c[1].split(",")
+            for (let j = 0; j <= _right.length - 1; j++) {
+                let c = {};
+                c["path"] = formulaTask.lex(_right[j]);
+                c["sort"] = 0;
+                str_nodes.push(_left[j].trim());
+                nodes[_left[j].trim()] = c
+            }
         }
         for (const f in nodes) {
             for (let i = 0; i <= nodes[f]["path"].length - 1; i++) {
@@ -79,8 +83,8 @@ class formulaTask {
     }
 
 }
-console.log(formulaTask.sort(formulaTask.build(`S = a * b
-V = S*h / 3
-a = 10
-b = 15
-h = (a + b) / 2`)));
+console.log(formulaTask.sort(formulaTask.build(`
+V = S*h / 3  
+S = a * b  
+a, b = 10, 15  
+h = (a + b) / 2 `)));
