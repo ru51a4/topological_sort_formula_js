@@ -59,13 +59,13 @@ class formulaTask {
                 return
             }
             if (node["sort"] == 1) {
-                throw new Error('circle');
+                throw new Error('cycel');
             }
             if (node["sort"] == 0) {
                 node["sort"] = 1
             }
             node["path"]?.forEach((node) => {
-                if (!(typeof node === 'string' || typeof node === 'number')) {
+                if (!(typeof node === 'string')) {
                     deep(node)
                 }
             });
@@ -79,8 +79,8 @@ class formulaTask {
     }
 
 }
-console.log(formulaTask.sort(formulaTask.build(`V = S*h / 3
-S = a * b
+console.log(formulaTask.sort(formulaTask.build(`S = a * b
+V = S*h / 3
 a = 10
 b = 15
 h = (a + b) / 2`)));
